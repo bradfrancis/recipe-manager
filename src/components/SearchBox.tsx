@@ -1,5 +1,4 @@
-import React, { SyntheticEvent, useState, CSSProperties } from "react";
-import { Form, Col, Button, Spinner } from "react-bootstrap";
+import React, { SyntheticEvent, useState } from "react";
 
 interface ISearchBoxProps {
 	searchFunction: (query: string) => any,
@@ -7,18 +6,9 @@ interface ISearchBoxProps {
 }
 
 const SearchBox: React.FC<ISearchBoxProps> = (props) => {
-	const [input, setInput] = useState('');
-
-    const spinnerStyles: CSSProperties = {
-        display: props.isLoading ? "inherit" : "none",
-        marginRight: "8px"
-    };
-
-    const buttonStyles: CSSProperties = {
-        verticalAlign: "text-top"
-    };
-
-	const onSubmit = (e: SyntheticEvent) => {
+    const [input, setInput] = useState('');
+    
+	const submitSearchForm = (e: SyntheticEvent) => {
         const query = input.trim();
 
         e.preventDefault();
@@ -30,36 +20,23 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
     };
 
 	return (
-        <Form onSubmit={onSubmit}>
-            <Form.Row>
-                <Col>
-                    <Form.Control
-                        placeholder="Search"
-                        value={input}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
-                    />
-                </Col>
-                <Col>
-                    <Button
-                        variant="primary"
-                        disabled={props.isLoading}
-                        type="submit"
-                    >
-                        <Spinner
-                            style={spinnerStyles}
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                        />
-                        <span style={buttonStyles}>
-                            {props.isLoading ? "Loading..." : "Search"}
-                        </span>
-                    </Button>
-                </Col>
-            </Form.Row>
-        </Form>
+        <>
+            <form onSubmit={submitSearchForm}>
+                <input
+                    type="input"
+                    placeholder="Enter search query..."
+                    value={input}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
+                />
+                <button
+                    disabled={props.isLoading}
+                    type="submit">
+                    <span>
+                        {props.isLoading ? "Loading..." : "Search"}
+                    </span>
+                </button>
+            </form>
+        </>
 	);
 }
 
