@@ -1,7 +1,6 @@
 import { 
 	REQUEST_RECIPES,
 	RECEIVE_RECIPES,
-	RECEIVE_MORE_RECIPES
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -20,21 +19,25 @@ export default function recipes(state = initialState, action) {
 				isFetching: true
 			});
 
-		case RECEIVE_RECIPES:
-			return Object.assign({}, state, {
-				...state,
-				isFetching: false,
-				fetchingDidError: action.error,
-				recipes: action.error ? state.recipes : action.payload.recipes
-			});
+		case RECEIVE_RECIPES: 
+			if (action.error) {
+				return Object.assign({}, state, {
+					...state,
+					isFetching: false,
+					fetchingDidError: true
+				});
+			} else {
+				const recipes = action.payload.append
+					? state.recipes.concat(action.payload.recipes)
+					: action.payload.recipes;
 
-		case RECEIVE_MORE_RECIPES:
-			return Object.assign({}, state, {
-				...state,
-				fetchingDidError: false,
-				isFetching: false,
-				recipes: state.recipes.concat(action.payload.recipes)
-			});
+				return Object.assign({}, state, {
+					...state,
+					isFetching: false,
+					fetchingDidError: false,
+					recipes: recipes
+				});
+			}
 
 		default:
 			return state

@@ -2,7 +2,6 @@ import fetch from "cross-fetch";
 import {
 	REQUEST_RECIPES,
 	RECEIVE_RECIPES,
-	RECEIVE_MORE_RECIPES
 } from "../constants/ActionTypes";
 
 function requestRecipes(query, offset) {
@@ -17,9 +16,10 @@ function requestRecipes(query, offset) {
 
 function receiveRecipes(json, append) {
 	return {
-		type: append ? RECEIVE_MORE_RECIPES : RECEIVE_RECIPES,
+		type: RECEIVE_RECIPES,
 		payload: {
-			recipes: json.hits.map(hit => hit.recipe)
+			recipes: json.hits.map(hit => hit.recipe),
+			append
 		},
 		error: false
 	}
