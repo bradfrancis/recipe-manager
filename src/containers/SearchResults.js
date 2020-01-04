@@ -4,13 +4,12 @@ import * as SearchActions from "../actions";
 import { bindActionCreators } from "redux";
 
 const mapStateToProps = state => {
-	const reducerState = state.recipesReducer;
-
-	return {
-		isFetching: reducerState.isFetching,
-		recipes: reducerState.recipes,
-		query: reducerState
-	}
+	return { 
+		recipes: state.recipesReducer.recipes,
+		query: state.recipesReducer.query, 
+		isFetching: state.recipesReducer.isFetching, 
+		fetchingDidError: state.recipesReducer.fetchingDidError
+	};
 };
 
 const mapPropsToDispatch = dispatch => ({

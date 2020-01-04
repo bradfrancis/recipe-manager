@@ -20,7 +20,16 @@ function receiveRecipes(json, append) {
 		type: append ? RECEIVE_MORE_RECIPES : RECEIVE_RECIPES,
 		payload: {
 			recipes: json.hits.map(hit => hit.recipe)
-		}
+		},
+		error: false
+	}
+}
+
+function receiveRecipesDidError(err) {
+	return {
+		type: RECEIVE_RECIPES,
+		payload: new Error(err.message),
+		error: true
 	}
 }
 
@@ -35,6 +44,7 @@ export function fetchRecipes(query, offset, append) {
 
 		return fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=${offset}`)
 			.then(res => res.json())
-			.then(json => dispatch(receiveRecipes(json, append)));
+			.then(json => dispatch(receiveRecipes(json, append)))
+			.catch(err => dispatch(receiveRecipesDidError(err)));
 	}
 }

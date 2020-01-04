@@ -3,27 +3,23 @@ import Loader from "./Loader";
 import RecipeCard from "./RecipeCard";
 import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import { Alert } from "react-bootstrap";
 
-const SearchResults = ({ recipes, isFetching, query, actions }) => {
+const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }) => {
 	const recipesLoaded = recipes && recipes.length > 0;
 
-	const loadMoreStyles = {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center"
-	};
-
 	return (
-		<>
+		<Container>
 			{isFetching && <Loader />}
 			{recipesLoaded &&
-				<div>
+				<div className="my-5">
 					<CardColumns>
 						{
 							recipes.map(recipe => <RecipeCard data={recipe} key={btoa(recipe.uri)} />)
 						}
 					</CardColumns>
-					<div className="mt-sm-10" style={loadMoreStyles}>
+					<div className="mt-sm-10 d-flex justify-content-center">
 						<Button
 							variant="info"
 							onClick={() => actions.fetchRecipes(query, recipes.length, true)}
@@ -34,7 +30,12 @@ const SearchResults = ({ recipes, isFetching, query, actions }) => {
 					</div>
 				</div>
 			}
-		</>
+			{fetchingDidError &&
+				<Alert variant="danger" dismissible>
+					<p>Uh oh! An error occurred while processing your request :/</p>
+				</Alert>
+			}
+		</Container>
 	);
 };
 

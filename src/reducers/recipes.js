@@ -7,6 +7,7 @@ import {
 const initialState = {
 	query: '',
 	isFetching: false,
+	fetchingDidError: false,
 	recipes: []
 };
 
@@ -15,6 +16,7 @@ export default function recipes(state = initialState, action) {
 		case REQUEST_RECIPES:
 			return Object.assign({}, state, {
 				...state,
+				query: action.payload.query,
 				isFetching: true
 			});
 
@@ -22,12 +24,14 @@ export default function recipes(state = initialState, action) {
 			return Object.assign({}, state, {
 				...state,
 				isFetching: false,
-				recipes: action.payload.recipes
+				fetchingDidError: action.error,
+				recipes: action.error ? state.recipes : action.payload.recipes
 			});
 
 		case RECEIVE_MORE_RECIPES:
 			return Object.assign({}, state, {
 				...state,
+				fetchingDidError: false,
 				isFetching: false,
 				recipes: state.recipes.concat(action.payload.recipes)
 			});

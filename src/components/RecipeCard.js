@@ -2,23 +2,11 @@ import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 
 const RecipeCard = ({data}) => {
-	console.log(data);
-
-	const outerImageStyle = {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center"
-	};
-
-	const innerImageStyle = {
-		borderRadius: "50%"
-	};
-
 	return (
 		<Card bg="light" border="secondary" style={{minWidth: "18rem"}}>
 			<Card.Header as="h4">{data.label}</Card.Header>
-			<div style={outerImageStyle} className="m-sm-4">
-				<img src={data.image} alt={data.label} style={innerImageStyle}/>
+			<div className="m-sm-4 p-3 d-flex justify-content-center">
+				<img src={data.image} alt={data.label} className="rounded-circle"/>
 			</div>
 			<Card.Body>
 				{

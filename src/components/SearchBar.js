@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Navbar, Form, FormControl, Container, Row, Col } from "react-bootstrap";
+import { Navbar, Form, Row, Col } from "react-bootstrap";
 
 const SearchBar = ({ isFetching, actions }) => {
 	const [input, setInput] = useState('');
@@ -22,29 +22,27 @@ const SearchBar = ({ isFetching, actions }) => {
 	};
 
 	return (
-		<Container>
-			<Navbar variant="dark" bg="light">
-				<Form inline onSubmit={(e) => handleSubmit(e)}>
-					<Form.Group as={Row}>
-						<Col sm="12">
-							<Form.Control
-								type="text"
-								placeholder="Search"
-								className="mr-sm-2"
-								onChange={(e) => setInput(e.target.value)}
-								disabled={isFetching}
-							/>
-							<Button
-								type="submit"
-								variant="outline-info"
-								disabled={isFetching}>
-								{didSubmit ? "Loading..." : "Search"}
-							</Button>
-						</Col>
-					</Form.Group>
-				</Form>
-			</Navbar>
-		</Container>
+		<Navbar variant="dark" bg="light">
+			<Form inline onSubmit={(e) => handleSubmit(e)}>
+				<Form.Group as={Row}>
+					<Col sm="12">
+						<Form.Control
+							type="text"
+							placeholder="Search"
+							className="mr-sm-2"
+							onChange={(e) => setInput(e.target.value)}
+							disabled={isFetching}
+						/>
+						<Button
+							type="submit"
+							variant="outline-info"
+							disabled={isFetching}>
+							{didSubmit ? "Loading..." : "Search"}
+						</Button>
+					</Col>
+				</Form.Group>
+			</Form>
+		</Navbar>
 	);
 }
 
