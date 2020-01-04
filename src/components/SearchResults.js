@@ -1,43 +1,37 @@
 import React from "react";
-
-const Loader = () => {
-	const loaderStyles = {
-		minHeight: "100vh",
-		minWidth: "100%",
-		opacity: 0.7,
-		fontSize: "2rem",
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
-		zIndex: 9999,
-		position: "absolute",
-		backgroundImage: "linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)"
-	};
-
-	return (
-		<div style={loaderStyles}>
-			<span>Loading...</span>
-		</div>
-	);
-}
+import Loader from "./Loader";
+import RecipeCard from "./RecipeCard";
+import CardColumns from "react-bootstrap/CardColumns";
+import Button from "react-bootstrap/Button";
 
 const SearchResults = ({ recipes, isFetching, query, actions }) => {
 	const recipesLoaded = recipes && recipes.length > 0;
+
+	const loadMoreStyles = {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center"
+	};
 
 	return (
 		<>
 			{isFetching && <Loader />}
 			{recipesLoaded &&
 				<div>
-					<ul>
-						{recipes.map(recipe => <li>{recipe.label}</li>)}
-					</ul>
-					<button
-						onClick={() => actions.fetchRecipes(query, recipes.length, true)}
-						disabled={isFetching}
-						>
-						Load More
-					</button>
+					<CardColumns>
+						{
+							recipes.map(recipe => <RecipeCard data={recipe} key={btoa(recipe.uri)} />)
+						}
+					</CardColumns>
+					<div className="mt-sm-10" style={loadMoreStyles}>
+						<Button
+							variant="info"
+							onClick={() => actions.fetchRecipes(query, recipes.length, true)}
+							disabled={isFetching}
+							>
+							Load More
+						</Button>
+					</div>
 				</div>
 			}
 		</>
