@@ -1,25 +1,68 @@
 import React from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Badge } from "react-bootstrap";
+
+const RecipeCardHightlightIcon = ({icon, value, suffix}) => {
+	const flooredVal = Math.floor(value);
+	const label = isNaN(flooredVal) ? "N/A" : `${flooredVal} ${suffix || ""}`.trimRight();
+
+	return (
+		<div className="text-center">
+			<FontAwesomeIcon icon={icon}/>
+			<span className="ml-2">{label}</span>
+		</div>
+	);
+}
+const RecipeCardHighlights = ({servings, weight, calories}) => (
+	<div className="d-flex justify-content-around mb-1">
+		<RecipeCardHightlightIcon icon="utensils" value={servings} />
+		<RecipeCardHightlightIcon icon="weight" value={weight} suffix="g"/>
+		<RecipeCardHightlightIcon icon="battery-three-quarters" value={calories} suffix="kcal" />
+	</div>
+);
+
+const RecipeCardLabelPills = ({healthLabels, dietLabels}) => {
+	const labels = [].concat(healthLabels, dietLabels);
+
+	return (
+		<>
+		{labels.length > 0 &&
+			<div className="p-2">
+			{
+				labels.map((label, i) => <Badge pill variant="info" key={i}>{label}</Badge>)
+			}
+			</div>
+		}
+		</>
+	);
+}
 
 const RecipeCard = ({data}) => {
+	console.log(data.dietLabels.concat(data.healthLabels));
+
 	return (
-		<Card bg="light" border="secondary" style={{minWidth: "18rem"}}>
-			<Card.Header as="h4">{data.label}</Card.Header>
-			<div className="m-sm-4 p-3 d-flex justify-content-center">
-				<img src={data.image} alt={data.label} className="rounded-circle"/>
-			</div>
-			<Card.Body>
-				{
-					data.ingredientLines && data.ingredientLines.length > 0 &&
-					<ListGroup variant="flush">
-						{
-							data.ingredientLines.map(ingredient => <ListGroup.Item variant="info">{ingredient}</ListGroup.Item>)
-						}
-					</ListGroup>
-				}
-			</Card.Body>
+		<Card style={{width: "18rem"}} border="secondary">
+			<Card.Img variant="top" src={data.image} />
+			<h5 className="text-center text-capitalize mt-2 p-2">{data.label}</h5>
+			<RecipeCardHighlights
+				servings={data.yield}
+				weight={data.totalWeight}
+				calories={data.calories}
+			/>
+			<RecipeCardLabelPills
+				healthLabels={data.healthLabels}
+				dietLabels={data.dietLabels}
+			/>
 			<Card.Footer>
-				<small className="text-muted">{data.source} (<a href={data.url}>{data.url}</a>)</small>
+				<small>
+					<a
+						href={data.url}
+						target="_blank"
+						rel="noopener noreferrer">
+						{data.source}
+					</a>
+				</small>
 			</Card.Footer>
 		</Card>
 	)	

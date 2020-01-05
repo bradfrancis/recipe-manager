@@ -4,7 +4,7 @@ import RecipeCard from "./RecipeCard";
 import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { Alert } from "react-bootstrap";
+import AutoDisappearingAlert from "./AutoDissappearingAlert";
 
 const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }) => {
 	const recipesLoaded = recipes && recipes.length > 0;
@@ -19,6 +19,13 @@ const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }
 							recipes.map(recipe => <RecipeCard data={recipe} key={btoa(recipe.uri)} />)
 						}
 					</CardColumns>
+
+					{fetchingDidError &&
+						<AutoDisappearingAlert variant="danger">
+							<p>An error occured processing your request. Please wait a moment and then try again.</p>
+						</AutoDisappearingAlert>
+					}
+
 					<div className="mt-sm-10 d-flex justify-content-center">
 						<Button
 							variant="info"
@@ -29,11 +36,6 @@ const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }
 						</Button>
 					</div>
 				</div>
-			}
-			{fetchingDidError &&
-				<Alert variant="danger" dismissible>
-					<p>Uh oh! An error occurred while processing your request :/</p>
-				</Alert>
 			}
 		</Container>
 	);
