@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Navbar, Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Jumbotron } from "react-bootstrap";
 
 const SearchBar = ({ isFetching, actions }) => {
 	const [input, setInput] = useState('');
@@ -22,7 +22,9 @@ const SearchBar = ({ isFetching, actions }) => {
 	};
 
 	return (
-		<Navbar variant="dark" bg="light">
+		<Jumbotron>
+			<h1>Search</h1>
+			<p>Use the search bar below to query the Edamam Recipe API</p>
 			<Form inline onSubmit={(e) => handleSubmit(e)}>
 				<Form.Group as={Row}>
 					<Col sm="12">
@@ -42,7 +44,7 @@ const SearchBar = ({ isFetching, actions }) => {
 					</Col>
 				</Form.Group>
 			</Form>
-		</Navbar>
+		</Jumbotron>
 	);
 }
 

@@ -40,30 +40,32 @@ const RecipeCardLabelPills = ({healthLabels, dietLabels}) => {
 
 const RecipeCard = ({data}) => {
 	return (
-		<Card style={{width: "18rem"}} border="secondary">
-			<Card.Img variant="top" src={data.image} />
-			<h5 className="text-center text-capitalize mt-2 p-2">{data.label}</h5>
-			<RecipeCardHighlights
-				servings={data.yield}
-				weight={data.totalWeight}
-				calories={data.calories}
-			/>
-			<RecipeCardLabelPills
-				healthLabels={data.healthLabels}
-				dietLabels={data.dietLabels}
-			/>
-			<Card.Footer>
-				<small>
-					<a
-						href={data.url}
-						target="_blank"
-						rel="noopener noreferrer">
-						{data.source}
-					</a>
-				</small>
-			</Card.Footer>
-		</Card>
-	)	
+		<div className="mb-3">
+			<Card style={{width: "18rem"}} border="secondary">
+				<Card.Img variant="top" src={data.image} />
+				<h5 className="text-center text-capitalize mt-2 p-2">{data.label}</h5>
+				<RecipeCardHighlights
+					servings={data.yield}
+					weight={data.totalWeight}
+					calories={data.calories}
+				/>
+				<RecipeCardLabelPills
+					healthLabels={data.healthLabels}
+					dietLabels={data.dietLabels}
+				/>
+				<Card.Footer>
+					<small>
+						<a
+							href={data.url}
+							target="_blank"
+							rel="noopener noreferrer">
+							{data.source}
+						</a>
+					</small>
+				</Card.Footer>
+			</Card>
+		</div>
+	);
 }
 
 export default RecipeCard;

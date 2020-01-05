@@ -36,13 +36,14 @@ function receiveRecipesDidError(err) {
 export function fetchRecipes(query, offset, append) {
 	const APP_ID = '7a6d9577';
 	const APP_KEY = '5152014cac5e42eed2aa82f005fa9ac9';
-
-	offset = offset || 0;
+	const resultsPerQuery = 12;
+	const from = offset || 0;
+	const to = from + resultsPerQuery;
 
 	return dispatch => {
 		dispatch(requestRecipes(query, offset));
 
-		return fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=${offset}`)
+		return fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=${from}&to=${to}`)
 			.then(res => res.json())
 			.then(json => dispatch(receiveRecipes(json, append)))
 			.catch(err => dispatch(receiveRecipesDidError(err)));

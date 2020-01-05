@@ -13,7 +13,7 @@ const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }
 			{isFetching && <Loader />}
 			{recipesLoaded &&
 				<div className="my-5">
-					<div className="d-flex flex-row flex-wrap">
+					<div className="d-flex flex-row flex-wrap justify-content-between">
 						{
 							recipes.map(recipe => <RecipeCard data={recipe} key={btoa(recipe.uri)} />)
 						}
@@ -25,7 +25,7 @@ const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }
 						</AutoDisappearingAlert>
 					}
 
-					<div className="mt-sm-10 d-flex justify-content-center">
+					<div className="m-4 p-1 d-flex justify-content-center">
 						<Button
 							variant="info"
 							onClick={() => actions.fetchRecipes(query, recipes.length, true)}
