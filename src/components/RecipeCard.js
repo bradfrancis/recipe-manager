@@ -55,6 +55,7 @@ const RecipeCard = ({data}) => {
 				/>
 				<Card.Footer>
 					<small>
+						<span>Source:&nbsp;</span>
 						<a
 							href={data.url}
 							target="_blank"

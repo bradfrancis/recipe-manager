@@ -12,8 +12,8 @@ const SearchBar = ({ isFetching, actions }) => {
 		if (input !== "") {
 			setDidSubmit(true);
 			const res = await actions.fetchRecipes(input);
-
-			if (res.payload && res.payload !== typeof(Error)) {
+			
+			if (!res.error) {
 				setInput('');
 			}
 
@@ -32,12 +32,13 @@ const SearchBar = ({ isFetching, actions }) => {
 							type="text"
 							placeholder="Search"
 							className="mr-sm-2"
+							value={input}
 							onChange={(e) => setInput(e.target.value)}
 							disabled={isFetching}
 						/>
 						<Button
 							type="submit"
-							variant="outline-info"
+							variant="info"
 							disabled={isFetching}>
 							{didSubmit ? "Loading..." : "Search"}
 						</Button>

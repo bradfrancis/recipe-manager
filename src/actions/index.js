@@ -19,7 +19,7 @@ function receiveRecipes(json, append) {
 		type: RECEIVE_RECIPES,
 		payload: {
 			recipes: json.hits.map(hit => hit.recipe),
-			append
+			append: append || false
 		},
 		error: false
 	}
