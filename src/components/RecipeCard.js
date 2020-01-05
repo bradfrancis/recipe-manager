@@ -39,8 +39,6 @@ const RecipeCardLabelPills = ({healthLabels, dietLabels}) => {
 }
 
 const RecipeCard = ({data}) => {
-	console.log(data.dietLabels.concat(data.healthLabels));
-
 	return (
 		<Card style={{width: "18rem"}} border="secondary">
 			<Card.Img variant="top" src={data.image} />

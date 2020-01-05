@@ -1,7 +1,6 @@
 import React from "react";
 import Loader from "./Loader";
 import RecipeCard from "./RecipeCard";
-import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import AutoDisappearingAlert from "./AutoDissappearingAlert";
@@ -14,11 +13,11 @@ const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }
 			{isFetching && <Loader />}
 			{recipesLoaded &&
 				<div className="my-5">
-					<CardColumns>
+					<div className="d-flex flex-row flex-wrap">
 						{
 							recipes.map(recipe => <RecipeCard data={recipe} key={btoa(recipe.uri)} />)
 						}
-					</CardColumns>
+					</div>
 
 					{fetchingDidError &&
 						<AutoDisappearingAlert variant="danger">
