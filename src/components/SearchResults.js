@@ -13,7 +13,7 @@ const SearchResults = ({ recipes, query, isFetching, fetchingDidError, actions }
 			{isFetching && <Loader />}
 			{recipesLoaded &&
 				<div className="my-5">
-					<div className="d-flex flex-row flex-wrap justify-content-between">
+					<div className="d-flex flex-wrap flex-row justify-content-between align-items-start">
 						{
 							recipes.map(recipe => <RecipeCard data={recipe} key={btoa(recipe.uri)} />)
 						}

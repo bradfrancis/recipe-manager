@@ -10,6 +10,7 @@ import {
 	faUtensils, 
 	faWeight,
 	faBalanceScale,
+	faSearch,
 	faBatteryThreeQuarters
 } from '@fortawesome/free-solid-svg-icons'
 import App from './components/App';
@@ -19,7 +20,7 @@ import './index.css';
 const loggerMiddleware = createLogger();
 
 // Font Awesome library
-library.add(faBatteryThreeQuarters, faBalanceScale, faWeight, faUtensils);
+library.add(faBatteryThreeQuarters, faBalanceScale, faWeight, faUtensils, faSearch);
 
 const store = createStore(
 	rootReducer,

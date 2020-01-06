@@ -1,47 +1,44 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import { Form, Row, Col, Jumbotron } from "react-bootstrap";
+import { Form, Row, Col, Jumbotron, InputGroup } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SearchBar = ({ isFetching, actions }) => {
 	const [input, setInput] = useState('');
-	const [didSubmit, setDidSubmit] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if (input !== "") {
-			setDidSubmit(true);
 			const res = await actions.fetchRecipes(input);
 			
 			if (!res.error) {
 				setInput('');
 			}
-
-			setDidSubmit(false);
 		}
 	};
 
 	return (
 		<Jumbotron>
-			<h1>Search</h1>
+			<h1 className="text-uppercase">Search</h1>
 			<p>Use the search bar below to query the Edamam Recipe API</p>
-			<Form inline onSubmit={(e) => handleSubmit(e)}>
+			<Form onSubmit={(e) => handleSubmit(e)}>
 				<Form.Group as={Row}>
-					<Col sm="12">
-						<Form.Control
-							type="text"
-							placeholder="Search"
-							className="mr-sm-2"
-							value={input}
-							onChange={(e) => setInput(e.target.value)}
-							disabled={isFetching}
-						/>
-						<Button
-							type="submit"
-							variant="info"
-							disabled={isFetching}>
-							{didSubmit ? "Loading..." : "Search"}
-						</Button>
+					<Col sm="6">
+						<InputGroup className="mb-3">
+							<InputGroup.Prepend>
+								<InputGroup.Text className="bg-info text-white">
+									<FontAwesomeIcon icon="search" />
+								</InputGroup.Text>
+							</InputGroup.Prepend>
+							<Form.Control
+								type="text"
+								placeholder="Search"
+								className="mr-sm-2"
+								value={input}
+								onChange={(e) => setInput(e.target.value)}
+								disabled={isFetching}
+							/>
+						</InputGroup>
 					</Col>
 				</Form.Group>
 			</Form>
