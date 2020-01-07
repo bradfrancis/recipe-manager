@@ -15,7 +15,7 @@ const RecipeCardHightlightIcon = ({icon, value, suffix}) => {
 	);
 }
 const RecipeCardHighlights = ({servings, weight, calories}) => (
-	<div className="d-flex justify-content-around mb-1">
+	<div className="d-flex flex-fill justify-content-around mb-1 text-smaller">
 		<RecipeCardHightlightIcon icon="utensils" value={servings} />
 		<RecipeCardHightlightIcon icon="weight" value={weight} suffix="g"/>
 		<RecipeCardHightlightIcon icon="battery-three-quarters" value={calories} suffix="kcal" />
@@ -68,11 +68,11 @@ const RecipeCardNutritionItem = ({label, quantity, unit}) => {
 const RecipeCard = ({data}) => {
 	return (
 		<div className="my-4 d-inline-flex flex-wrap" style={{width: "45%"}}>
-			<div className="imgContainerOuter p-2 w-50">
+			<div className="p-2 w-50">
 				<img src={data.image} alt={data.label} title={data.label} className="w-100" />
 			</div>
-			<div className="highlightsContainerOuter p-1 flex-fill w-50">
-				<h5 className="text-center text-capitalize mt-2 p-2">{data.label}</h5>
+			<div className="p-1 w-50 d-inline-flex flex-row flex-wrap justify-content-center">
+				<h5 className="text-center text-capitalize mt-1 p-2">{data.label}</h5>
 				<RecipeCardHighlights
 					servings={data.yield}
 					weight={data.totalWeight}
@@ -82,8 +82,11 @@ const RecipeCard = ({data}) => {
 					healthLabels={data.healthLabels}
 					dietLabels={data.dietLabels}
 				/>
+				<div className="align-self-end">
+					<small>Source: <a href={data.url} title={data.source}>{data.source}</a></small>
+				</div>
 			</div>
-			<div className="detailsContainerOuter flex-grow-1">
+			<div className="flex-grow-1">
 				<Accordion>
 					<Card>
 						<Accordion.Toggle as={Card.Header} eventKey="0">Ingredients</Accordion.Toggle>
