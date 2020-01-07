@@ -1,35 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
-	faUtensils, 
-	faWeight,
-	faBalanceScale,
-	faSearch,
-	faBatteryThreeQuarters
-} from '@fortawesome/free-solid-svg-icons'
-import App from './components/App';
+import configureStore from './configureStore';
+import configureFonts from './configureFonts';
+import Root from './components/Root';
 import './index.css';
 
+// Configure Font Awesome library
+configureFonts();
 
-const loggerMiddleware = createLogger();
-
-// Font Awesome library
-library.add(faBatteryThreeQuarters, faBalanceScale, faWeight, faUtensils, faSearch);
-
-const store = createStore(
-	rootReducer,
-	applyMiddleware(thunkMiddleware, loggerMiddleware)
-);
+const store = configureStore();
 
 ReactDOM.render(
-	<Provider store={store}>
-		<App />
-	</Provider>
+	<Root store={store} />
 	,document.getElementById('root')
 );
